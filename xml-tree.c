@@ -46,7 +46,7 @@ struct xnode *node_make(const char *label, char ***tokens, int *len) {
     struct xnode *root = malloc(sizeof(struct xnode));
     root->label = malloc(strlen(label) + 1);
     strcpy((char *) root->label, label);
-    struct collector *col = collector_init(sizeof(struct xnode *), node_print);
+    struct collector *col = collector_init(sizeof(struct xnode *), node_print); // a collector of *xnodes
 
     while (*len > 0) {
         struct xnode *to_add = malloc(sizeof(struct xnode));
