@@ -93,8 +93,8 @@ struct xnode *node_make(const char *label, char ***tokens, int *len) {
     int length = 0;
     struct xnode **temp_arr = collector_collapse(col, &length);
     root->children = malloc(sizeof(struct xnode *) * length);
-    root->children = temp_arr;
-    //memcpy(root->children, temp_arr, (sizeof(struct xnode *) * length));
+    // root->children = temp_arr;
+    memcpy(root->children, temp_arr, (sizeof(struct xnode *) * length));
     root->children_len = length;
     printf("%d \n", root->children_len);
 
