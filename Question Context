@@ -1,0 +1,38 @@
+XML code cannot be further processed until it is read into a tree structure. What makes storing XML code in a tree somehow special is that each node can have an arbitrary number of childen. In the XML code below, for example, the element "<name>" has one child (the content "CS 136"):
+
+<name>CS 136</name>
+In the example below the element "<ul>" has three children (the "<li>"-elements), which in turn have one child ("Content #1" and "Content #2") and three children respectively ("Content ", <strong>, and "3"). It should also be obvious that an element can have another element inside of it:
+
+<ul>
+  <li>Content #1</li>
+  <li>Content #2</li>
+  <li>Content <strong>#</strong>3</li>
+</ul>
+As a tree, this XML code would look like this:
+
+
+                 | [root]
+                <ul>
+                 |
+    +------------+----------------+                 
+    |            |                |
+   <li>         <li>             <li>
+    |            |                |
+Content #1   Content #2   +-------+-------+
+                          |       |       |
+                      Content  <strong>   3
+                                  |
+                                  #
+In this assignment question, you are to implement an ADT that takes an array of tokens and stores them in a tree.
+
+[q2-XMLtree]: implement the missing functions in xml-tree.c. We have already implemented most of the tree-related functionality for your convenience. We have opted for a recursive approach, so most of the functionality, however, resides within the nodes. The most important function here is node_make, which recursively traverses an array of tokens (given as a pointer-type parameter, therefore the type char ***) and generates tree nodes in the process. Be reminded that the children in a node are an array of abitrary length (type struct xnode **), so using the Collector ADT might prove itself to be useful. (For that, we have already implemented the function node_print for you.)
+
+Another important function to complete implementing is tree_print. We have left it to you to implement the recursive part which performs the actual tree traversal. For each node you encounter you should simply print its label (if the node represents content) or the start- and end-tags (if the node represents markup). Please do not use node_print as it serves a different purpose (see above).
+
+A few details about the fields of xnode:
+
+label stores the node's name (if the node represents markup) or content (if the node represents content)
+children stores an array of the node's children (if the node represents markup; nodes representing content have no children)
+children_len stores the length of this array.
+For any node that is content, the children_len shall be TEXT_NODE (defined as -1 in xml-tree.c).
+Finally, every tree shall consist of a root node. For this node, the label shall be ROOT_TAG ("<%%root%%>").
